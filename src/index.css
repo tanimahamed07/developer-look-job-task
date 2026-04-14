@@ -1,2 +1,43 @@
 @import "tailwindcss";
-@plugin "daisyui";
+
+/* ১. প্লাগিন সেটআপ */
+@plugin "daisyui" {
+  themes: light --default, dark;
+}
+
+/* ২. থিম কনফিগারেশন (Updated with your Image Colors) */
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+
+  /* Main Colors from the palette image */
+  --color-primary: #0d8dff;        /* Dodger Blue (Buttons & Icons) */
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #fcb8fa;      /* Lavender Rose (Pink sections) */
+  --color-secondary-content: #161616;
+
+  --color-accent: #33c791;         /* Shamrock Green */
+  --color-accent-content: #ffffff;
+
+  /* Background Colors */
+  --color-base-100: #fdf4ed;       /* Quarter Spanish White (Asal Background) */
+  --color-base-200: #faf4ec;       /* Slightly darker for cards/sections */
+  --color-base-300: #f4ece1;
+
+  /* Text & Neutral */
+  --color-neutral: #161616;        /* Cod Gray (Heading/Text) */
+  --color-neutral-content: #ffffff;
+
+  /* Roundness (Slightly more rounded like the design) */
+  --radius-selector: 1rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.5rem;
+}
+
+/* ৩. Global Styles */
+body {
+  /* Ekhon bg-base-100 dilei auto #fdf4ed peye jabe */
+  @apply min-h-screen bg-base-100 text-neutral antialiased;
+  font-family: 'Inter', sans-serif; 
+}
