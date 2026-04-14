@@ -7,7 +7,7 @@ const Navbar = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <nav className="w-full bg-base-100 px-6 py-5">
+    <nav className="w-full bg-base-100 px-6 py-4">
       <div className="max-w-[1400px] mx-auto flex items-center justify-between">
         {/* ১. Logo Section */}
         <div className="flex-1">
