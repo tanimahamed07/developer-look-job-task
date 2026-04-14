@@ -29,10 +29,6 @@
   --color-neutral: #161616;        /* Cod Gray (Heading/Text) */
   --color-neutral-content: #ffffff;
 
-  /* Roundness (Slightly more rounded like the design) */
-  --radius-selector: 1rem;
-  --radius-field: 0.75rem;
-  --radius-box: 1.5rem;
 }
 
 /* ৩. Global Styles */
