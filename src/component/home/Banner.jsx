@@ -122,7 +122,7 @@ const Banner = () => {
 
         {/* Mobile View: Updated Width & Height */}
         <div className="flex md:hidden relative h-[420px] mt-8 items-center justify-center">
-          {/* Card 1 (Blue/Primary) - Bro kora hoyeche */}
+
           <div className="absolute left-[5%] top-14 z-10 w-[210px] h-[280px] bg-primary rounded-[30px] p-7 flex flex-col justify-between shadow-lg -rotate-[8deg]">
             <h2 className="text-[42px] leading-tight font-extrabold text-white">
               10M+

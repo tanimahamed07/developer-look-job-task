@@ -24,7 +24,7 @@ const Brand = () => {
     brandLogo10,
   ];
 
-  // ইনফিনিট লুপের জন্য ডুপ্লিকেট করা হয়েছে
+
   const duplicatedLogos = [...logos, ...logos];
 
   return (

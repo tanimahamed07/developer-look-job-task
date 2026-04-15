@@ -63,7 +63,7 @@ const Card = ({ item, index, progress, range, targetScale }) => {
             </p>
 
             <button
-              className={`${item.btnColor} text-black pl-5 pr-1.5 py-1.5 md:pl-7 md:pr-2 md:py-2 rounded-[10px] font-bold flex items-center justify-between gap-4 md:gap-5 hover:scale-105 transition-transform w-fit`}
+              className={`${item.btnColor} text-black pl-5 pr-1.5 py-1.5 md:pl-7 md:pr-2 md:py-2 rounded-[10px] font-bold flex items-center justify-between gap-4 md:gap-5 hover:scale-105 hover:-rotate-3 transition-transform w-fit`}
             >
               <span className="text-[13px] md:text-[16px] whitespace-nowrap">
                 Meer over {item.title.toLowerCase()}
@@ -155,6 +155,7 @@ const Service = () => {
 
   return (
     <section
+      id="services-section" // এই ID টি যোগ করুন
       ref={container}
       className="bg-[#F9F6F0] px-2 md:px-10 md:pb-20 relative"
     >

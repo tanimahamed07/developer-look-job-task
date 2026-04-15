@@ -44,7 +44,7 @@ const Content = () => {
             jouw <br /> doelgroep. Met creatieve content <br /> die werkt och
             het verschil maakt.
           </p>
-          <button className="flex items-center gap-2 md:mb-0 mb-22 px-2 py-1 border border-black rounded-[10px] font-bold text-[16px] hover:bg-black hover:text-white transition-all">
+          <button className="flex transform hover:-rotate-4 items-center gap-2 md:mb-0 mb-22 px-2 py-1 border border-black rounded-[10px] font-bold text-[16px] transition-all duration-300">
             Bekijk al ons werk
             <div className="bg-black text-white rounded-[6px] p-2">
               <FiArrowRight size={20} />

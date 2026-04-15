@@ -72,7 +72,6 @@ const Footer = () => {
               key={logo.id}
               src={logo.src}
               alt=""
-              // সাইজ বাড়িয়ে w-64 করা হয়েছে (approx 256px)
               className="absolute w-64 h-auto object-contain pointer-events-none"
               style={{
                 left: logo.x,
@@ -80,13 +79,12 @@ const Footer = () => {
                 translateX: "-50%",
                 translateY: "-50%",
               }}
-              // opacity শুরুতে ১ রাখা হয়েছে (কম থেকে বেশি হওয়ার পার্ট বাদ দেওয়া হয়েছে)
               initial={{ opacity: 1, scale: 0.6, y: 0 }}
               animate={{
-                opacity: [1, 1, 0], // শুরু থেকে স্পষ্ট থাকবে, শেষে ভ্যানিশ হবে
+                opacity: [1, 1, 0], 
                 scale: 1,
                 rotate: logo.rotate,
-                y: -180, // ভেসে ওঠার দূরত্ব একটু বাড়ানো হয়েছে
+                y: -180, 
               }}
               exit={{
                 opacity: 0,
@@ -108,9 +106,9 @@ const Footer = () => {
           </h2>
 
           <div className="flex flex-wrap justify-center gap-3 md:gap-4 relative z-10">
-            <button className="flex items-center gap-3 px-2 border border-black rounded-xl font-extrabold text-[14px] md:text-[15px] hover:bg-black hover:text-white transition-all group shadow-sm">
+            <button className="flex items-center z-50 hover:rotate-4 gap-3 px-2 border border-black rounded-xl font-extrabold text-[14px] md:text-[15px] transition-all group shadow-sm">
               Mail ons direct
-              <span className="bg-black text-white rounded-md p-2 group-hover:bg-white group-hover:text-black transition-colors">
+              <span className="bg-black text-white rounded-md p-2 transition-colors">
                 <svg
                   width="18"
                   height="18"
@@ -126,7 +124,7 @@ const Footer = () => {
                 </svg>
               </span>
             </button>
-            <button className="flex items-center gap-2 px-2 py-2 bg-[#FF6B35] text-white rounded-xl font-bold text-[14px] md:text-[15px] shadow-lg hover:brightness-110 transition-all">
+            <button className="flex hover:-rotate-3 items-center gap-2 px-2 py-2 bg-[#FF6B35] text-white rounded-xl font-bold text-[14px] md:text-[15px] shadow-lg hover:brightness-110 transition-all">
               Get Results{" "}
               <span className="text-[16px] md:text-[18px] bg-white px-1.5 rounded-xs">
                 🔥
@@ -203,7 +201,7 @@ const Footer = () => {
               </p>
             </div>
             <div className="w-full flex flex-col items-center gap-2 mt-4 pt-6 border-t border-black/5">
-              <p className="text-[13px] opacity-40 underline">
+              <p className="text-[13px]  opacity-40 underline">
                 Privacyvoorwaarden
               </p>
               <div className="flex flex-col gap-1 items-center">
@@ -299,7 +297,7 @@ const Footer = () => {
                 <span className="text-[15px] font-extrabold tracking-widest mb-1 uppercase">
                   Address
                 </span>
-                <p className="font-bold opacity-70 text-[12px] leading-snug">
+                <p className="font-bold opacity-70 text-[12px] hover:text-red-500 leading-snug">
                   Beltrumsestraat 6,
                   <br />
                   7141 AL Groenlo
