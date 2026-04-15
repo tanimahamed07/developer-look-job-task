@@ -152,7 +152,7 @@ const Footer = () => {
             </motion.div>
           </div>
 
-          <div className="relative z-10 flex flex-col items-center text-center gap-7 pt-28 pb-10 px-[20px] md:hidden">
+          <div className="relative z-10 flex flex-col items-center text-center gap-7 md:pt-28 pb-10 px-[20px] md:hidden">
             <div className="w-full flex justify-center mb-2">
               <img src={navLogo} alt="Logo" className="h-auto max-w-[360px]" />
             </div>
