@@ -1,25 +1,115 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import footerBg from "../../assets/image (13).svg";
 import navLogo from "../../assets/navLogo.svg";
 import footerBadge from "../../assets/684862436e2f808b7aeb86d2_GH-webclip.png";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaLinkedinIn, FaTiktok, FaInstagram, FaYoutube } from "react-icons/fa";
+import footerLogo1 from "../../assets/684c3415b3eecf81e4b1d9a7_gh-logo-red.svg";
+import footerLogo2 from "../../assets/684c3415e192971624995445_gh-logo-green.svg";
+import footerLogo3 from "../../assets/684c3415233f03ab6c1143fa_gh-logo-pink.svg";
+import footerLogo4 from "../../assets/684c3415233f03ab6c1143fa_gh-logo-pink.svg";
 
 const Footer = () => {
   const navItems = ["Expertises", "Work", "About", "Contact"];
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
+  // --- Floating Logo Logic ---
+  const containerRef = useRef(null);
+  const [floatingLogos, setFloatingLogos] = useState([]);
+  const lastSpawnPos = useRef({ x: 0, y: 0 });
+  const lastSpawnTime = useRef(0);
+
+  const randomLogos = [
+    footerLogo1,
+    footerLogo2,
+    footerLogo3,
+    footerLogo4,
+    navLogo,
+  ];
+
+  const handleMouseMove = (e) => {
+    if (window.innerWidth < 768 || !containerRef.current) return;
+
+    const now = Date.now();
+    const dx = e.clientX - lastSpawnPos.current.x;
+    const dy = e.clientY - lastSpawnPos.current.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < 150 || now - lastSpawnTime.current < 250) return;
+
+    lastSpawnTime.current = now;
+    lastSpawnPos.current = { x: e.clientX, y: e.clientY };
+
+    const rect = containerRef.current.getBoundingClientRect();
+    const logoIndex = Math.floor(Math.random() * randomLogos.length);
+    const newLogoId = now;
+
+    const newLogo = {
+      id: newLogoId,
+      src: randomLogos[logoIndex],
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      rotate: Math.random() * 40 - 20,
+    };
+
+    setFloatingLogos((prev) => [...prev, newLogo]);
+
+    setTimeout(() => {
+      setFloatingLogos((prev) => prev.filter((logo) => logo.id !== newLogoId));
+    }, 1500);
+  };
+
   return (
-    <footer className="relative w-full overflow-hidden">
-      <div className="max-w-[1400px] mx-auto">
-        {/* --- Top Section (Hidden on Mobile) --- */}
+    <footer
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      className="relative w-full overflow-hidden"
+    >
+      {/* ── LOGO SPAWNING LAYER ── */}
+      <div className="absolute inset-0 z-0 pointer-events-none hidden md:block overflow-hidden">
+        <AnimatePresence>
+          {floatingLogos.map((logo) => (
+            <motion.img
+              key={logo.id}
+              src={logo.src}
+              alt=""
+              // সাইজ বাড়িয়ে w-64 করা হয়েছে (approx 256px)
+              className="absolute w-64 h-auto object-contain pointer-events-none"
+              style={{
+                left: logo.x,
+                top: logo.y,
+                translateX: "-50%",
+                translateY: "-50%",
+              }}
+              // opacity শুরুতে ১ রাখা হয়েছে (কম থেকে বেশি হওয়ার পার্ট বাদ দেওয়া হয়েছে)
+              initial={{ opacity: 1, scale: 0.6, y: 0 }}
+              animate={{
+                opacity: [1, 1, 0], // শুরু থেকে স্পষ্ট থাকবে, শেষে ভ্যানিশ হবে
+                scale: 1,
+                rotate: logo.rotate,
+                y: -180, // ভেসে ওঠার দূরত্ব একটু বাড়ানো হয়েছে
+              }}
+              exit={{
+                opacity: 0,
+                scale: 1.2,
+              }}
+              transition={{
+                duration: 1.5,
+                ease: "easeOut",
+              }}
+            />
+          ))}
+        </AnimatePresence>
+      </div>
+
+      <div className="max-w-[1400px] mx-auto relative z-10">
+        {/* --- Top Section --- */}
         <div className="hidden md:block text-center pt-16 md:pt-24 px-4">
-          <h2 className="text-[42px] md:text-[95px] font-[550] text-[#1D1D1F] leading-[0.85] tracking-tighter mb-8 md:mb-10">
+          <h2 className=" text-[42px] md:text-[95px] font-[550] pt-[250px] text-[#1D1D1F] leading-[0.85] tracking-tighter mb-8 md:mb-10">
             Let's Get Hyped!
           </h2>
 
           <div className="flex flex-wrap justify-center gap-3 md:gap-4 relative z-10">
-            {/* Mail Button */}
             <button className="flex items-center gap-3 px-2 border border-black rounded-xl font-extrabold text-[14px] md:text-[15px] hover:bg-black hover:text-white transition-all group shadow-sm">
               Mail ons direct
               <span className="bg-black text-white rounded-md p-2 group-hover:bg-white group-hover:text-black transition-colors">
@@ -38,7 +128,6 @@ const Footer = () => {
                 </svg>
               </span>
             </button>
-            {/* Get Results Button */}
             <button className="flex items-center gap-2 px-2 py-2 bg-[#FF6B35] text-white rounded-xl font-bold text-[14px] md:text-[15px] shadow-lg hover:brightness-110 transition-all">
               Get Results{" "}
               <span className="text-[16px] md:text-[18px] bg-white px-1.5 rounded-xs">
@@ -49,17 +138,15 @@ const Footer = () => {
         </div>
 
         {/* --- Bottom Content Area --- */}
-        <div className="relative mt-8 md:mt-0">
-          {/* Background SVG Shape - Updated for Mobile height */}
-          <div className="absolute inset-x-0 bottom-0 z-0">
-            <img 
-              src={footerBg} 
-              alt="" 
-              className="w-full object-cover min-h-[750px] md:min-h-0 object-bottom" 
+        <div className="relative mt-8 md:bg-transparent md:mt-0">
+          <div className="absolute md:block hidden inset-x-0 bottom-0 z-0">
+            <img
+              src={footerBg}
+              alt=""
+              className="w-full"
             />
           </div>
 
-          {/* Rotating Circular Badge (Hidden on Mobile) */}
           <div className="hidden md:block absolute top-5 right-4 md:right-24 z-30 -translate-y-1/2">
             <motion.div
               animate={{ rotate: 360 }}
@@ -74,27 +161,22 @@ const Footer = () => {
             </motion.div>
           </div>
 
-          {/* ── MOBILE LAYOUT (UPDATED) ── */}
+          {/* ── MOBILE LAYOUT ── */}
           <div className="relative z-10 flex flex-col items-center text-center gap-7 pt-28 pb-10 px-[20px] md:hidden">
-            {/* Logo - Large centered according to screenshot */}
             <div className="w-full flex justify-center mb-2">
               <img
                 src={navLogo}
                 alt="Logo"
-                className="w-[85%] h-auto max-w-[320px]"
+                className="h-auto max-w-[360px]"
               />
             </div>
-
-            {/* Orange Button - Full rounded and focused */}
-            <button className="flex items-center justify-center gap-2 w-fit px-6 py-3 bg-[#FF4D1C] text-white rounded-full font-bold text-[15px] shadow-lg">
+            <button className="flex items-center justify-center gap-2 w-fit px-2 py-1 bg-[#FF4D1C] text-white rounded-xl font-bold text-[19px] shadow-lg">
               Get Hyped! Neem contact op
-              <span className="text-[18px] bg-white/20 px-1 rounded-md">
+              <span className="text-[19px] bg-white px-2 py-1 rounded-md">
                 🔥
               </span>
             </button>
-
-            {/* Nav Pills - Pills shape */}
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex justify-center gap-2">
               {navItems.map((item, index) => (
                 <div
                   key={index}
@@ -104,8 +186,6 @@ const Footer = () => {
                 </div>
               ))}
             </div>
-
-            {/* Social Icons */}
             <div className="flex justify-center gap-3">
               {[FaLinkedinIn, FaTiktok, FaInstagram, FaYoutube].map(
                 (Icon, i) => (
@@ -118,45 +198,35 @@ const Footer = () => {
                 ),
               )}
             </div>
-
-            {/* Contact Details - Stacked centered */}
-            <div className="flex flex-col gap-6 mt-2">
+            <div className="flex flex-col gap-6 mt-2 text-[#1D1D1F]">
               <div className="flex flex-col gap-1">
                 <a
                   href="mailto:info@gethyped.nl"
-                  className="font-bold text-[15px] text-[#1D1D1F]"
+                  className="font-bold text-[15px]"
                 >
                   info@gethyped.nl
                 </a>
-                <a
-                  href="tel:+31615337496"
-                  className="font-bold text-[15px] text-[#1D1D1F]"
-                >
+                <a href="tel:+31615337496" className="font-bold text-[15px]">
                   +31 6 1533 7496
                 </a>
               </div>
-              <div className="flex flex-col gap-1">
-                <p className="font-bold text-[14px] text-[#1D1D1F] opacity-80 leading-snug">
-                  Beltrumsestraat 6, 7141 AL Groenlo
-                </p>
-              </div>
+              <p className="font-bold text-[14px] opacity-80 leading-snug">
+                Beltrumsestraat 6, 7141 AL Groenlo
+              </p>
             </div>
-
-            {/* Bottom Links */}
             <div className="w-full flex flex-col items-center gap-2 mt-4 pt-6 border-t border-black/5">
               <p className="text-[13px] opacity-40 underline">
                 Privacyvoorwaarden
               </p>
               <div className="flex flex-col gap-1 items-center">
-                <p className="opacity-30 text-[11px]">© 2025 Get Hyped</p>
+                <p className="opacity-30 text-[11px]">© 2026 Get Hyped</p>
                 <p className="opacity-30 text-[11px]">© Design by Dylan</p>
               </div>
             </div>
           </div>
 
-          {/* ── DESKTOP LAYOUT (unchanged) ── */}
+          {/* ── DESKTOP LAYOUT ── */}
           <div className="relative z-10 hidden md:grid grid-cols-12 gap-8 items-end pb-3 pt-30 px-2">
-            {/* 1. Left: Logo */}
             <div className="col-span-7 flex justify-start">
               <img
                 src={navLogo}
@@ -165,7 +235,6 @@ const Footer = () => {
               />
             </div>
 
-            {/* 2. Middle: Navigation & Socials */}
             <div className="col-span-3 flex flex-col items-start gap-8">
               <div className="flex gap-2">
                 {navItems.map((item, index) => (
@@ -173,7 +242,7 @@ const Footer = () => {
                     key={index}
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}
-                    className="relative bg-white px-2 py-1 rounded-[10px] cursor-pointer shadow-sm border border-black/5 overflow-hidden group"
+                    className="relative bg-white px-3 py-1.5 rounded-[10px] cursor-pointer shadow-sm border border-black/5 overflow-hidden group"
                   >
                     <span
                       className={`relative z-20 text-[14px] font-bold transition-colors duration-300 ${hoveredIndex === index ? "text-white" : "text-[#1D1D1F]"}`}
@@ -198,7 +267,6 @@ const Footer = () => {
                   </div>
                 ))}
               </div>
-
               <div className="flex items-center gap-5">
                 <span className="text-[11px] font-black uppercase opacity-60 tracking-widest">
                   Follow us
@@ -216,45 +284,43 @@ const Footer = () => {
                   )}
                 </div>
               </div>
-
-              <div className="flex w-full justify-between items-center">
-                <p className="opacity-60 text-[12px]">© 2025 Get Hyped</p>
-                <p className="opacity-60 text-[12px]">© Design by Dylan</p>
+              <div className="flex w-full justify-between items-center text-[12px] opacity-60">
+                <p>© 2026 Get Hyped</p>
+                <p>© Design by Dylan</p>
               </div>
             </div>
 
-            {/* 3. Right: Contact Info */}
             <div className="col-span-2 flex flex-col gap-3 text-[14px]">
               <div className="flex flex-col gap-0.5">
-                <span className="text-[15px] font-extrabold tracking-widest mb-1">
+                <span className="text-[15px] font-extrabold tracking-widest mb-1 uppercase">
                   Contact
                 </span>
                 <a
                   href="mailto:info@gethyped.nl"
-                  className="font-bold opacity-70 text-[12px] hover:text-red-500 text-[#1D1D1F] hover:underline"
+                  className="font-bold opacity-70 text-[12px] hover:text-red-500 hover:underline"
                 >
                   info@gethyped.nl
                 </a>
                 <a
                   href="tel:+31615337496"
-                  className="font-bold opacity-70 text-[12px] hover:text-red-500 text-[#1D1D1F] hover:underline"
+                  className="font-bold opacity-70 text-[12px] hover:text-red-500 hover:underline"
                 >
                   +31 6 1533 7496
                 </a>
               </div>
               <div className="flex flex-col gap-0.5">
-                <span className="text-[15px] font-extrabold tracking-widest mb-1">
+                <span className="text-[15px] font-extrabold tracking-widest mb-1 uppercase">
                   Address
                 </span>
-                <p className="font-bold opacity-70 text-[12px] text-[#1D1D1F] leading-snug">
+                <p className="font-bold opacity-70 text-[12px] leading-snug">
                   Beltrumsestraat 6,
                   <br />
                   7141 AL Groenlo
                 </p>
               </div>
-              <div>
-                <p className="opacity-60 text-[12px]">Privacyvoorwaarden</p>
-              </div>
+              <p className="opacity-60 text-[12px] cursor-pointer hover:underline">
+                Privacyvoorwaarden
+              </p>
             </div>
           </div>
         </div>
