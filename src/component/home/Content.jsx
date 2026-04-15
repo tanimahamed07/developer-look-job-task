@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react"; // useEffect যোগ করা হয়েছে
 import { FiArrowUpRight, FiArrowRight } from "react-icons/fi";
 import contentVideo from "../../assets/loco-bites-loop.mp4";
 import contentVideo1 from "../../assets/roasta-loop.mp4";
@@ -32,6 +32,24 @@ const Content = () => {
     },
   ];
 
+  // সব ভিডিওর রেফারেন্স একটি অ্যারেতে রাখার জন্য
+  const videoRefs = useRef([]);
+
+  useEffect(() => {
+    // চেক করা হচ্ছে ডিভাইসটি মোবাইল কি না (প্রস্থ ১০২৪ পিক্সেলের কম হলে)
+    const isMobile = window.innerWidth < 1024;
+
+    if (isMobile) {
+      videoRefs.current.forEach((video) => {
+        if (video) {
+          video.play().catch((error) => {
+            console.log("Auto-play was prevented:", error);
+          });
+        }
+      });
+    }
+  }, []);
+
   return (
     <section className="bg-[#FAF6F1] md:py-14 px-6 md:px-12 lg:px-20">
       <div className="max-w-[1300px] mx-auto">
@@ -54,13 +72,19 @@ const Content = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 items-start">
           {cards.map((card, index) => {
-            const videoRef = useRef(null);
-
             return (
               <div
                 key={card.id}
-                onMouseEnter={() => videoRef.current?.play()}
-                onMouseLeave={() => videoRef.current?.pause()}
+                onMouseEnter={() => {
+                  // ডেস্কটপে হোভারে প্লে হবে
+                  if (window.innerWidth >= 1024)
+                    videoRefs.current[index]?.play();
+                }}
+                onMouseLeave={() => {
+                  // ডেস্কটপে মাউস সরালে পজ হবে
+                  if (window.innerWidth >= 1024)
+                    videoRefs.current[index]?.pause();
+                }}
                 className={`relative group rounded-[40px] overflow-hidden border-[7px] ${card.borderColor} 
                 w-full md:w-[360px] h-[500px] mx-auto transition-all duration-500 ease-in-out
                 hover:-rotate-2 hover:scale-[1.01] 
@@ -73,7 +97,7 @@ const Content = () => {
                 }`}
               >
                 <video
-                  ref={videoRef}
+                  ref={(el) => (videoRefs.current[index] = el)}
                   src={card.video}
                   loop
                   muted

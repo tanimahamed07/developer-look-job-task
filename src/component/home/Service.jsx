@@ -1,6 +1,9 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import carouselVideo from "../../assets/MD Loop Schaken.mp4";
+import carouselVideo1 from "../../assets/MD Loop Schaken.mp4";
+import carouselVideo2 from "../../assets/Loop BTS comp.mp4";
+import carouselVideo3 from "../../assets/overdetop-loop.mp4";
+import carouselVideo4 from "../../assets/Data comp.mp4";
 
 const Card = ({ item, index, progress, range, targetScale }) => {
   const container = useRef(null);
@@ -37,20 +40,20 @@ const Card = ({ item, index, progress, range, targetScale }) => {
           </span>
         </div>
 
-        {/* Middle/Bottom Content */}
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 md:gap-8 mt-4 md:mt-10 h-full">
-          {/* Video Container: Positioned in middle for mobile, end for desktop */}
           <div
             className={`relative w-[180px] md:w-[320px] aspect-[3/4] p-1.5 md:p-2 border-[4px] md:border-[6px] ${item.videoBorder} rounded-[25px] md:rounded-[45px] overflow-hidden rotate-[3deg] md:rotate-[4deg] shadow-xl order-2 md:order-2`}
           >
+            {/* এখানে dynamic ভিডিও সোর্স বসানো হয়েছে */}
             <video
               className="w-full h-full object-cover rounded-[20px] md:rounded-[38px]"
               autoPlay
               loop
               muted
               playsInline
+              key={item.video} // ভিডিও পরিবর্তন নিশ্চিত করতে key ব্যবহার করা ভালো
             >
-              <source src={carouselVideo} type="video/mp4" />
+              <source src={item.video} type="video/mp4" />
             </video>
           </div>
 
@@ -72,8 +75,6 @@ const Card = ({ item, index, progress, range, targetScale }) => {
                 <svg
                   width="16"
                   height="16"
-                  md:width="20"
-                  md:height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -103,9 +104,9 @@ const Service = () => {
       id: "01",
       title: "Social strategy",
       tag: "Expertise",
+      video: carouselVideo1, // ১ম ভিডিও
       description: "Slimme strategie. Sterke start.",
-      details:
-        "We duiken diep in jouw merk, doelgrouep en\ndoelen. En vertalen data naar een duidelijk\nplan...",
+      details: "We duiken diep in jouw merk, doelgrouep en\ndoelen...",
       bgColor: "bg-white",
       btnColor: "bg-[#f75625]",
       numColor: "text-[#eee5d3]",
@@ -116,9 +117,9 @@ const Service = () => {
       id: "02",
       title: "Content creation",
       tag: "Expertise",
+      video: carouselVideo2, // ২য় ভিডিও
       description: "Content die opvalt en raakt.",
-      details:
-        "We maken content die opvalt. Blijft hangen.\nEn jouw doelgroep raakt. Creatief, snel\nen energiek. Altijd met het doel voor ogen.",
+      details: "We maken content die opvalt. Blijft hangen...",
       bgColor: "bg-[#f2a1d3]",
       btnColor: "bg-white",
       numColor: "text-[#e589c3]",
@@ -129,9 +130,9 @@ const Service = () => {
       id: "03",
       title: "Activation",
       tag: "Expertise",
+      video: carouselVideo3, // ৩য় ভিডিও
       description: "Zichtbaar waar it counts.",
-      details:
-        "De juiste content verdient het om gezien te\nworden. We verspreiden de content...",
+      details: "De juiste content verdient het om gezien te\nworden...",
       bgColor: "bg-[#3cb685]",
       btnColor: "bg-white",
       numColor: "text-[#34a377]",
@@ -142,9 +143,9 @@ const Service = () => {
       id: "04",
       title: "Data",
       tag: "Expertise",
+      video: carouselVideo4, // ৪র্থ ভিডিও
       description: "Inzichten die impact maken.",
-      details:
-        "We duiken in de cijfers om te snappen wat\nécht werkt. En sturen jouw content scherp bij.",
+      details: "We duiken in de cijfers om te snappen wat\nécht werkt...",
       bgColor: "bg-[#0b85f2]",
       btnColor: "bg-white",
       numColor: "text-[#0a78db]",
@@ -155,7 +156,7 @@ const Service = () => {
 
   return (
     <section
-      id="services-section" // এই ID টি যোগ করুন
+      id="services-section"
       ref={container}
       className="bg-[#F9F6F0] px-2 md:px-10 md:pb-20 relative"
     >
