@@ -153,7 +153,7 @@ const Service = () => {
   ];
 
   return (
-    <section ref={container} className="bg-[#F9F6F0] px-2 md:px-10 pb-20 relative">
+    <section ref={container} className="bg-[#F9F6F0] px-2 md:px-10 md:pb-20 relative">
       {servicesData.map((item, index) => {
         const targetScale = 1 - (servicesData.length - index) * 0.05;
         return (
