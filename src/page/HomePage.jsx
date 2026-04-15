@@ -1,4 +1,3 @@
-import React from "react";
 import Banner from "../component/home/Banner";
 import IntroSection from "../component/home/IntroSection";
 import Service from "../component/home/Service";
@@ -8,11 +7,11 @@ import Brand from "../component/home/Brand";
 const HomePage = () => {
   return (
     <div>
-      <Banner></Banner>
-      <IntroSection></IntroSection>
-      <Service></Service>
-      <Content></Content>
-      <Brand></Brand>
+      <Banner />
+      <IntroSection />
+      <Service />
+      <Content />
+      <Brand />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import footerBg from "../../assets/image (13).svg";
 import navLogo from "../../assets/navLogo.svg";
 import footerBadge from "../../assets/684862436e2f808b7aeb86d2_GH-webclip.png";
@@ -65,7 +65,6 @@ const Footer = () => {
       onMouseMove={handleMouseMove}
       className="relative w-full overflow-hidden"
     >
-      {/* ── LOGO SPAWNING LAYER ── */}
       <div className="absolute inset-0 z-0 pointer-events-none hidden md:block overflow-hidden">
         <AnimatePresence>
           {floatingLogos.map((logo) => (
@@ -103,7 +102,6 @@ const Footer = () => {
       </div>
 
       <div className="max-w-[1400px] mx-auto relative z-10">
-        {/* --- Top Section --- */}
         <div className="hidden md:block text-center pt-16 md:pt-24 px-4">
           <h2 className=" text-[42px] md:text-[95px] font-[550] pt-[250px] text-[#1D1D1F] leading-[0.85] tracking-tighter mb-8 md:mb-10">
             Let's Get Hyped!
@@ -137,14 +135,9 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* --- Bottom Content Area --- */}
         <div className="relative mt-8 md:bg-transparent md:mt-0">
           <div className="absolute md:block hidden inset-x-0 bottom-0 z-0">
-            <img
-              src={footerBg}
-              alt=""
-              className="w-full"
-            />
+            <img src={footerBg} alt="" className="w-full" />
           </div>
 
           <div className="hidden md:block absolute top-5 right-4 md:right-24 z-30 -translate-y-1/2">
@@ -161,14 +154,9 @@ const Footer = () => {
             </motion.div>
           </div>
 
-          {/* ── MOBILE LAYOUT ── */}
           <div className="relative z-10 flex flex-col items-center text-center gap-7 pt-28 pb-10 px-[20px] md:hidden">
             <div className="w-full flex justify-center mb-2">
-              <img
-                src={navLogo}
-                alt="Logo"
-                className="h-auto max-w-[360px]"
-              />
+              <img src={navLogo} alt="Logo" className="h-auto max-w-[360px]" />
             </div>
             <button className="flex items-center justify-center gap-2 w-fit px-2 py-1 bg-[#FF4D1C] text-white rounded-xl font-bold text-[19px] shadow-lg">
               Get Hyped! Neem contact op
@@ -225,7 +213,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* ── DESKTOP LAYOUT ── */}
           <div className="relative z-10 hidden md:grid grid-cols-12 gap-8 items-end pb-3 pt-30 px-2">
             <div className="col-span-7 flex justify-start">
               <img

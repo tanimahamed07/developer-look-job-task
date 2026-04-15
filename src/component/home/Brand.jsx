@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import brandLogo1 from "../../assets/68c194e6d1b186563459b107_morssinkhof.svg";
 import brandLogo2 from "../../assets/68c1952f22281ee50d3620b5_zclv.svg";
@@ -29,15 +28,13 @@ const Brand = () => {
   const duplicatedLogos = [...logos, ...logos];
 
   return (
-    <section className=" py-30 overflow-hidden">
-      {/* Header section */}
+    <section className="py-30 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 mb-16">
         <h2 className="text-[40px] md:text-[60px] font-bold text-[#1D1D1F] leading-[1] tracking-tight">
           These brands <br /> got hyped.
         </h2>
       </div>
 
-      {/* Framer Motion Marquee Container */}
       <div className="relative flex overflow-hidden">
         <motion.div
           className="flex whitespace-nowrap"
@@ -48,7 +45,7 @@ const Brand = () => {
             x: {
               repeat: Infinity,
               repeatType: "loop",
-              duration: 10, // সুপার ফাস্ট স্পিড
+              duration: 10,
               ease: "linear",
             },
           }}
@@ -69,7 +66,6 @@ const Brand = () => {
         </motion.div>
       </div>
 
-      {/* Bottom Divider Line */}
       <div className="max-w-[1300px] mx-auto px-6 mt-20">
         <hr className="border-t border-black/10" />
       </div>

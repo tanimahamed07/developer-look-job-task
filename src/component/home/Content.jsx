@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { FiArrowUpRight, FiArrowRight } from "react-icons/fi";
 import contentVideo from "../../assets/loco-bites-loop.mp4";
 import contentVideo1 from "../../assets/roasta-loop.mp4";
@@ -35,7 +35,6 @@ const Content = () => {
   return (
     <section className="bg-[#FAF6F1] md:py-14 px-6 md:px-12 lg:px-20">
       <div className="max-w-[1300px] mx-auto">
-        {/* Header Section */}
         <div className="max-w-xl md:ml-16">
           <h1 className="text-[50px] md:text-[90px] font-bold leading-[1] text-[#1D1D1F] pr-4 mb-5">
             Content <br /> dat scoort.
@@ -53,10 +52,8 @@ const Content = () => {
           </button>
         </div>
 
-        {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 items-start">
           {cards.map((card, index) => {
-            // ভিডিও কন্ট্রোল করার জন্য রেফ
             const videoRef = useRef(null);
 
             return (
@@ -87,16 +84,13 @@ const Content = () => {
                 <div
                   className={`absolute bottom-3 left-3 right-3 ${card.bgColor} p-6 rounded-[28px] text-white flex flex-col justify-between min-h-[140px] transition-transform duration-500 group-hover:scale-[0.98]`}
                 >
-                  {/* Arrow Animation Part */}
                   <div className="absolute top-4 right-4 bg-white text-black rounded-full h-10 w-10 flex items-center justify-center shadow-lg overflow-hidden group">
                     <div className="relative h-5 w-5 flex items-center justify-center transition-all duration-500 ease-in-out">
-                      {/* প্রথম আইকন - ডান দিকে চলে যাবে */}
                       <FiArrowUpRight
                         size={24}
                         className="font-extrabold absolute transition-transform duration-500 ease-in-out group-hover:translate-x-10 group-hover:-translate-y-10"
                       />
 
-                      {/* দ্বিতীয় আইকন - বাম দিক থেকে আসবে */}
                       <FiArrowUpRight
                         size={24}
                         className="absolute font-bold -translate-x-10 translate-y-10 transition-transform duration-500 ease-in-out group-hover:translate-x-0 group-hover:translate-y-0"
